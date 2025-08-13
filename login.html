@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSpark - Login/Signup</title>
+    <link rel="stylesheet" href="login-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>🚀 CodeSpark</h1>
+                <p>Join the coding adventure!</p>
+            </div>
+            
+            <div class="toggle-buttons">
+                <button class="toggle-btn active" onclick="showLogin()">Login</button>
+                <button class="toggle-btn" onclick="showSignup()">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="form active">
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+                <div class="forgot-password">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="form">
+                <div class="input-group">
+                    <input type="text" id="signupName" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
+                </div>
+                <div class="age-group">
+                    <label>Age Group:</label>
+                    <select id="ageGroup" required>
+                        <option value="">Select Age Group</option>
+                        <option value="8-12">8-12 years</option>
+                        <option value="13-16">13-16 years</option>
+                        <option value="17+">17+ years</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Create Account</button>
+            </form>
+
+            <!-- Forgot Password Form -->
+            <form id="forgotForm" class="form">
+                <div class="input-group">
+                    <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="submit-btn">Reset Password</button>
+                <div class="back-to-login">
+                    <a href="#" onclick="showLogin()">Back to Login</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="features">
+            <h2>Why Join CodeSpark?</h2>
+            <div class="feature-item">
+                <span class="feature-icon">🎯</span>
+                <div>
+                    <h3>Personalized Learning</h3>
+                    <p>AI-powered lessons tailored to your skill level</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🏆</span>
+                <div>
+                    <h3>Track Progress</h3>
+                    <p>See your coding journey with detailed analytics</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🎮</span>
+                <div>
+                    <h3>Fun Projects</h3>
+                    <p>Build games, apps, and websites while learning</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🤖</span>
+                <div>
+                    <h3>AI Tutor</h3>
+                    <p>Get instant help from our friendly AI coding assistant</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="login-script.js"></script>
+</body>
+</html>

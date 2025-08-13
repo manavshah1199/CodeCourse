@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeSpark: Learn to Code</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <h1>CodeYourFuture</h1>
+    <nav>
+      <ul>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#ai-tutor">AI Tutor</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#gallery">Project Gallery</a></li>
+        <li id="auth-section">
+          <span id="user-info" style="display: none;">
+            Welcome, <span id="user-name"></span>! 
+            <button onclick="logout()" class="logout-btn">Logout</button>
+          </span>
+          <a href="login.html" id="login-link">Login</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h3>Fun. Interactive. Personalized Coding.</h3>
+    <p>Pick your favorite course and start learning your way.</p>
+    <button onclick="startLearning()">Start Free</button>
+  </section>
+
+  <section id="courses">
+    <h2>Our Courses</h2>
+    <div class="course-list">
+      <div class="course" id="python">
+        <h3>🐍 Python</h3>
+        <p>Perfect for beginners. Logic, variables, and fun projects.</p>
+        <button onclick="window.location.href='python-course.html'" class="course-btn">Start Learning</button>
+      </div>
+      <div class="course" id="java">
+        <h3>☕ Java</h3>
+        <p>Learn object-oriented programming with real-world examples.</p>
+        <button onclick="window.location.href='java-course.html'" class="course-btn">Start Learning</button>
+      </div>
+      <div class="course" id="scratch">
+        <h3>🎮 Scratch/Blocks</h3>
+        <p>Drag, drop, and build games with visual coding.</p>
+        <button onclick="window.location.href='scratch-course.html'" class="course-btn">Start Learning</button>
+      </div>
+      <div class="course" id="html">
+        <h3>🌐 HTML</h3>
+        <p>Design your own websites from scratch.</p>
+        <button onclick="window.location.href='html-course.html'" class="course-btn">Start Learning</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai-tutor">
+    <h2>Ask the AI Tutor</h2>
+    <div id="chat-box">
+      <div id="chat-log"></div>
+      <input type="text" id="user-input" placeholder="Ask a coding question...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2>Pricing</h2>
+    <p><strong>Free:</strong> Full access to courses + AI tutor</p>
+    <p><strong>Pro (Coming Soon):</strong> 1-on-1 tutoring sessions with me</p>
+  </section>
+
+  <section id="gallery">
+    <h2>Final Project Gallery</h2>
+    <p>See what other students have built!</p>
+    <div id="project-gallery"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 CodeSpark. Created with ❤️</p>
+  </footer>
+</body>
+</html>

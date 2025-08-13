@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSpark - Java Course</title>
+    <link rel="stylesheet" href="java-course-styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <h1>☕ Java Course</h1>
+                <div class="nav-links">
+                    <a href="codecourse.html">← Back to CodeSpark</a>
+                    <span id="user-info" style="display: none;">
+                        Welcome, <span id="user-name"></span>! 
+                        <button onclick="logout()" class="logout-btn">Logout</button>
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="course-container">
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <h2>Your Progress</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p id="progress-text">0% Complete</p>
+            </div>
+
+            <!-- Lesson Navigation -->
+            <div class="lesson-nav">
+                <h3>Lessons</h3>
+                <div class="lesson-list" id="lesson-list">
+                    <!-- Lessons will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Current Lesson -->
+            <div class="lesson-content" id="lesson-content">
+                <div class="welcome-screen" id="welcome-screen">
+                    <h2>☕ Welcome to Java!</h2>
+                    <p>Learn object-oriented programming with Java - the language powering Android apps and enterprise software!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <span class="feature-icon">🏗️</span>
+                            <h4>Object-Oriented</h4>
+                            <p>Build reusable classes and objects</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">📱</span>
+                            <h4>Android Development</h4>
+                            <p>Create mobile apps for Android</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">⚡</span>
+                            <h4>High Performance</h4>
+                            <p>Fast and reliable enterprise software</p>
+                        </div>
+                    </div>
+                    <button class="start-btn" onclick="startCourse()">Start Coding! 🚀</button>
+                </div>
+            </div>
+
+            <!-- Code Editor -->
+            <div class="code-section" id="code-section" style="display: none;">
+                <h3>Write Your Java Code!</h3>
+                <div class="code-editor">
+                    <textarea id="code-input" placeholder="Write your Java code here..."></textarea>
+                    <div class="code-controls">
+                        <button onclick="runCode()" class="run-btn">▶️ Run Code</button>
+                        <button onclick="resetCode()" class="reset-btn">🔄 Reset</button>
+                    </div>
+                </div>
+                <div class="output-section">
+                    <h4>Output:</h4>
+                    <div id="code-output" class="code-output"></div>
+                </div>
+            </div>
+
+            <!-- Exercise Section -->
+            <div class="exercise-section" id="exercise-section" style="display: none;">
+                <h3>Practice Exercise</h3>
+                <div id="exercise-content"></div>
+                <button onclick="checkAnswer()" class="check-btn">Check Answer</button>
+                <button onclick="showHint()" class="hint-btn">💡 Get Hint</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Widget -->
+    <div class="ai-widget">
+        <button class="ai-widget-button" onclick="toggleAIChat()" id="ai-widget-button">
+            <!-- Character facial features -->
+            <div class="eye-pupil left"></div>
+            <div class="eye-pupil right"></div>
+            <div class="eye-reflection left"></div>
+            <div class="eye-reflection right"></div>
+            <div class="smile"></div>
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+            <div class="hand right"></div>
+            <div class="foot left"></div>
+            <div class="foot right"></div>
+        </button>
+    </div>
+
+    <!-- AI Chat Container -->
+    <div class="ai-chat-container" id="ai-chat-container">
+        <div class="ai-chat-header">
+            <h3>🤖 AI Tutor</h3>
+            <button class="ai-chat-close" onclick="toggleAIChat()">✕</button>
+        </div>
+        <div class="ai-chat-messages" id="ai-chat-messages">
+            <div class="ai-message ai">
+                Hi! I'm your Java AI Tutor! ☕ Ask me anything about object-oriented programming!
+            </div>
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" id="ai-chat-input" placeholder="Ask me about Java..." onkeypress="handleAIChatKeyPress(event)">
+            <button class="ai-chat-send" onclick="sendAIMessage()" id="ai-chat-send">Send</button>
+        </div>
+    </div>
+
+    <script src="java-course-script.js"></script>
+</body>
+</html>

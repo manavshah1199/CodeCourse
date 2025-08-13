@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSpark - Scratch/Blocks Course</title>
+    <link rel="stylesheet" href="scratch-course-styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <h1>🎮 Scratch/Blocks Course</h1>
+                <div class="nav-links">
+                    <a href="codecourse.html">← Back to CodeSpark</a>
+                    <span id="user-info" style="display: none;">
+                        Welcome, <span id="user-name"></span>! 
+                        <button onclick="logout()" class="logout-btn">Logout</button>
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="course-container">
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <h2>Your Progress</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p id="progress-text">0% Complete</p>
+            </div>
+
+            <!-- Lesson Navigation -->
+            <div class="lesson-nav">
+                <h3>Lessons</h3>
+                <div class="lesson-list" id="lesson-list">
+                    <!-- Lessons will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Current Lesson -->
+            <div class="lesson-content" id="lesson-content">
+                <div class="welcome-screen" id="welcome-screen">
+                    <h2>🎮 Welcome to Scratch/Blocks!</h2>
+                    <p>Learn programming through visual blocks - perfect for beginners!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <span class="feature-icon">🧩</span>
+                            <h4>Drag & Drop</h4>
+                            <p>No typing required - just snap blocks together</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🎨</span>
+                            <h4>Visual Learning</h4>
+                            <p>See your code come to life instantly</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🎯</span>
+                            <h4>Game Creation</h4>
+                            <p>Build your own games and animations</p>
+                        </div>
+                    </div>
+                    <button class="start-btn" onclick="startCourse()">Start Building! 🚀</button>
+                </div>
+            </div>
+
+            <!-- Block Editor -->
+            <div class="block-section" id="block-section" style="display: none;">
+                <h3>Build Your Code!</h3>
+                <div class="block-workspace">
+                    <div class="block-palette">
+                        <h4>Available Blocks</h4>
+                        <div class="block-category">
+                            <h5>Motion</h5>
+                            <div class="block motion-block" draggable="true" data-block="move">
+                                <span class="block-color motion"></span>
+                                move 10 steps
+                            </div>
+                            <div class="block motion-block" draggable="true" data-block="turn">
+                                <span class="block-color motion"></span>
+                                turn 15 degrees
+                            </div>
+                            <div class="block motion-block" draggable="true" data-block="goto">
+                                <span class="block-color motion"></span>
+                                go to x: 0 y: 0
+                            </div>
+                        </div>
+                        <div class="block-category">
+                            <h5>Control</h5>
+                            <div class="block control-block" draggable="true" data-block="when-flag">
+                                <span class="block-color control"></span>
+                                when flag clicked
+                            </div>
+                            <div class="block control-block" draggable="true" data-block="repeat">
+                                <span class="block-color control"></span>
+                                repeat 10
+                            </div>
+                            <div class="block control-block" draggable="true" data-block="wait">
+                                <span class="block-color control"></span>
+                                wait 1 seconds
+                            </div>
+                        </div>
+                        <div class="block-category">
+                            <h5>Looks</h5>
+                            <div class="block looks-block" draggable="true" data-block="say">
+                                <span class="block-color looks"></span>
+                                say Hello!
+                            </div>
+                            <div class="block looks-block" draggable="true" data-block="change-color">
+                                <span class="block-color looks"></span>
+                                change color effect by 25
+                            </div>
+                        </div>
+                        <div class="block-category">
+                            <h5>Sound</h5>
+                            <div class="block sound-block" draggable="true" data-block="play-sound">
+                                <span class="block-color sound"></span>
+                                play sound meow
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-script-area">
+                        <h4>Script Area</h4>
+                        <div class="script-container" id="script-container">
+                            <p class="drop-hint">Drag blocks here to build your script!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-controls">
+                    <button onclick="runScript()" class="run-btn">▶️ Run Script</button>
+                    <button onclick="clearScript()" class="clear-btn">🗑️ Clear</button>
+                    <button onclick="resetScript()" class="reset-btn">🔄 Reset</button>
+                </div>
+                <div class="output-section">
+                    <h4>Stage Preview:</h4>
+                    <div class="stage-preview" id="stage-preview">
+                        <div class="sprite" id="sprite">🐱</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise Section -->
+            <div class="exercise-section" id="exercise-section" style="display: none;">
+                <h3>Practice Exercise</h3>
+                <div id="exercise-content"></div>
+                <button onclick="checkAnswer()" class="check-btn">Check Answer</button>
+                <button onclick="showHint()" class="hint-btn">💡 Get Hint</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Widget -->
+    <div class="ai-widget">
+        <button class="ai-widget-button" onclick="toggleAIChat()" id="ai-widget-button">
+            <!-- Character facial features -->
+            <div class="eye-pupil left"></div>
+            <div class="eye-pupil right"></div>
+            <div class="eye-reflection left"></div>
+            <div class="eye-reflection right"></div>
+            <div class="smile"></div>
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+            <div class="hand right"></div>
+            <div class="foot left"></div>
+            <div class="foot right"></div>
+        </button>
+    </div>
+
+    <!-- AI Chat Container -->
+    <div class="ai-chat-container" id="ai-chat-container">
+        <div class="ai-chat-header">
+            <h3>🤖 AI Tutor</h3>
+            <button class="ai-chat-close" onclick="toggleAIChat()">✕</button>
+        </div>
+        <div class="ai-chat-messages" id="ai-chat-messages">
+            <div class="ai-message ai">
+                Hi! I'm your Scratch/Blocks AI Tutor! 🎮 Ask me anything about visual programming!
+            </div>
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" id="ai-chat-input" placeholder="Ask me about blocks..." onkeypress="handleAIChatKeyPress(event)">
+            <button class="ai-chat-send" onclick="sendAIMessage()" id="ai-chat-send">Send</button>
+        </div>
+    </div>
+
+    <script src="scratch-course-script.js"></script>
+</body>
+</html>
