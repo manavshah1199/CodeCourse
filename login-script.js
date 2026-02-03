@@ -1,3 +1,7 @@
+const API_BASE = window.location.origin.startsWith('http')
+    ? `${window.location.protocol}//${window.location.hostname}:5000`
+    : 'http://localhost:5000';
+
 // Form switching functionality
 function showLogin() {
     hideAllForms();
@@ -103,7 +107,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     setLoading(submitBtn, true);
     
     try {
-        const response = await fetch('http://localhost:5000/login', {
+        const response = await fetch(`${API_BASE}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -176,7 +180,7 @@ document.getElementById('signupForm').addEventListener('submit', async function(
     setLoading(submitBtn, true);
     
     try {
-        const response = await fetch('http://localhost:5000/signup', {
+        const response = await fetch(`${API_BASE}/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -228,7 +232,7 @@ document.getElementById('forgotForm').addEventListener('submit', async function(
     setLoading(submitBtn, true);
     
     try {
-        const response = await fetch('http://localhost:5000/forgot-password', {
+        const response = await fetch(`${API_BASE}/forgot-password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

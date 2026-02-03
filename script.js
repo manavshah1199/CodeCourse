@@ -1,3 +1,7 @@
+const API_BASE = window.location.origin.startsWith('http')
+  ? `${window.location.protocol}//${window.location.hostname}:5000`
+  : 'http://localhost:5000';
+
 // Authentication functions
 function checkAuthStatus() {
     const token = localStorage.getItem('token');
@@ -21,7 +25,7 @@ function logout() {
     
     // Call logout endpoint
     if (token) {
-        fetch('http://localhost:5000/logout', {
+        fetch(`${API_BASE}/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -170,7 +174,7 @@ function sendMessage() {
   userInput.value = '';
 
   // 🔁 Fetch real-time AI response from Autogen Python backend
-  fetch('http://localhost:5000/ai-tutor', {
+  fetch(`${API_BASE}/ai-tutor`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ user_input: message })
