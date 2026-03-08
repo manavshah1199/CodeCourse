@@ -1,11 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import openai
-import os
-import json
-import hashlib
-import secrets
 import datetime
+import hashlib
+import random
+import secrets
 
 app = Flask(__name__)
 CORS(app)
@@ -14,22 +12,24 @@ CORS(app)
 users = {}
 tokens = {}  # Store active tokens
 
-# Load OpenAI API key from config.json
-try:
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
-        api_key = config.get("OPENAI_API_KEY", "")
-        os.environ["OPENAI_API_KEY"] = api_key
-        openai.api_key = api_key
-        print(f"✅ OpenAI API key loaded (length: {len(api_key)})")
-        if not api_key:
-            print("⚠️  API key is empty!")
-except FileNotFoundError:
-    print("⚠️  config.json not found. Please create it with your OpenAI API key.")
-    os.environ["OPENAI_API_KEY"] = ""
-except json.JSONDecodeError:
-    print("⚠️  Invalid JSON in config.json. Please check the format.")
-    os.environ["OPENAI_API_KEY"] = ""
+DEFAULT_TUTOR_RESPONSES = [
+    "Python is fun! 🐍 Try: print('Hello World!')",
+    "Variables store data! 📦 Example: name = 'Alex'",
+    "Loops repeat actions! 🔄 Try: for i in range(3): print(i)",
+    "If statements help decide! 🤔 Example: if score > 10: print('Nice!')",
+    "Functions reuse code! 🧩 Example: def greet(): print('Hi!')"
+]
+
+KEYWORD_RESPONSES = {
+    "python": "Python is fun! 🐍 Start with: print('Hello World!')",
+    "java": "Java uses classes! ☕ Example: System.out.println(\"Hi!\");",
+    "html": "HTML builds pages! 🧱 Example: <h1>Hello!</h1>",
+    "css": "CSS styles pages! 🎨 Example: h1 { color: blue; }",
+    "loop": "Loops repeat code! 🔄 Try: for i in range(3): print(i)",
+    "variable": "Variables store data! 📦 Try: age = 12",
+    "function": "Functions reuse code! 🧩 Try: def greet(): print('Hi!')",
+    "if": "If statements decide! 🤔 Try: if score > 10: print('Nice!')",
+}
 
 # Authentication helper functions
 def hash_password(password):
@@ -49,7 +49,9 @@ def verify_token(token):
 @app.route('/signup', methods=['POST'])
 def signup():
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        if not isinstance(data, dict):
+            data = {}
         name = data.get('name', '').strip()
         email = data.get('email', '').strip().lower()
         password = data.get('password', '')
@@ -98,7 +100,9 @@ def signup():
 @app.route('/login', methods=['POST'])
 def login():
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        if not isinstance(data, dict):
+            data = {}
         email = data.get('email', '').strip().lower()
         password = data.get('password', '')
         
@@ -141,7 +145,9 @@ def login():
 @app.route('/forgot-password', methods=['POST'])
 def forgot_password():
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        if not isinstance(data, dict):
+            data = {}
         email = data.get('email', '').strip().lower()
         
         if not email or '@' not in email:
@@ -163,7 +169,9 @@ def forgot_password():
 @app.route('/logout', methods=['POST'])
 def logout():
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        if not isinstance(data, dict):
+            data = {}
         token = data.get('token', '')
         
         if token in tokens:
@@ -179,39 +187,27 @@ def logout():
 @app.route('/ai-tutor', methods=['POST'])
 def handle_ai_tutor():
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        if not isinstance(data, dict):
+            data = {}
         user_input = data.get('user_input', '').strip()
 
         if not user_input:
             return jsonify({'reply': 'Please enter a message so I can help you! 😊'}), 400
 
         print(f"🤖 Processing: {user_input}")
-        print(f"🔑 API Key available: {bool(openai.api_key)}")
 
-        # Send prompt to OpenAI using the new API format
-        client = openai.OpenAI(api_key=openai.api_key)
-        response = client.chat.completions.create(
-            model="gpt-4.1-mini",
-            messages=[
-                {"role": "system", "content": (
-                    "You are CodeSpark, a friendly AI coding tutor for kids and teens. "
-                    "Keep responses SHORT and SIMPLE - 2-3 sentences max! "
-                    "Use simple words and emojis. Be encouraging but brief. "
-                    "Focus on one concept at a time. "
-                    "Example responses: "
-                    "'Python is fun! 🐍 Start with: print(\"Hello World!\")' "
-                    "'Variables store data! 📦 Try: name = \"Alex\"' "
-                    "'Loops repeat code! 🔄 for i in range(3): print(i)' "
-                    "Keep it super simple and engaging! 🌟"
-                )},
-                {"role": "user", "content": user_input}
-            ],
-            temperature=0.7,
-            max_tokens=1500
-        )
+        lowered = user_input.lower()
+        reply = None
+        for keyword, response in KEYWORD_RESPONSES.items():
+            if keyword in lowered:
+                reply = response
+                break
 
-        reply = response.choices[0].message.content
-        print(f"✅ OpenAI response: {reply[:100]}...")
+        if reply is None:
+            reply = random.choice(DEFAULT_TUTOR_RESPONSES)
+
+        print(f"✅ Tutor response: {reply}")
         return jsonify({'reply': reply})
 
     except Exception as e:
