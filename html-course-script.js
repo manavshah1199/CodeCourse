@@ -538,6 +538,62 @@ let htmlLessons = [
     }
 ];
 
+function buildHtmlActivities(lesson) {
+    const primary = lesson.exercise || {
+        question: `Build a mini page for ${lesson.title}`,
+        starterCode: `<!DOCTYPE html>\n<html>\n<head>\n    <title>${lesson.title}</title>\n</head>\n<body>\n    <!-- Build your page here -->\n</body>\n</html>`,
+        solution: "<h1>",
+        hint: "Start with a heading and one paragraph."
+    };
+
+    return [
+        primary,
+        {
+            question: `Stretch Activity: Extend \"${lesson.title}\" with semantic structure and one link.`,
+            starterCode: primary.starterCode,
+            solution: "section",
+            hint: "Use semantic tags like <section>, <article>, or <footer>."
+        }
+    ];
+}
+
+function normalizeHtmlLessons() {
+    htmlLessons = htmlLessons.slice(0, 15);
+
+    while (htmlLessons.length < 15) {
+        const nextLesson = htmlLessons.length + 1;
+        htmlLessons.push({
+            id: nextLesson,
+            title: `HTML Practice Studio ${nextLesson}`,
+            content: `
+                <h2>🧪 HTML Practice Studio ${nextLesson}</h2>
+                <p>Practice combining headings, lists, links, media, and semantic layout in one clean page.</p>
+                <div class="concept-box">
+                    <h4>Focus Skills</h4>
+                    <ul>
+                        <li>Organize content with semantic tags</li>
+                        <li>Improve accessibility with labels and alt text</li>
+                        <li>Keep page structure readable and reusable</li>
+                    </ul>
+                </div>
+            `,
+            exercise: null
+        });
+    }
+
+    htmlLessons = htmlLessons.map((lesson, index) => {
+        const activities = lesson.activities?.length ? lesson.activities : buildHtmlActivities(lesson);
+        return {
+            ...lesson,
+            id: index + 1,
+            activities,
+            exercise: activities[0]
+        };
+    });
+}
+
+normalizeHtmlLessons();
+
 // Initialize the course
 document.addEventListener('DOMContentLoaded', function() {
     loadLessons();

@@ -1,5 +1,5 @@
 // Python Course Data
-const pythonLessons = [
+let pythonLessons = [
     {
         id: 1,
         title: "Hello World! 👋",
@@ -1094,6 +1094,35 @@ except:
         }
     }
 ];
+
+// Normalize to 15 lessons with 2 activities per lesson
+
+function buildPythonActivities(lesson) {
+    const primary = lesson.exercise;
+    return [
+        primary,
+        {
+            question: `Challenge Activity: Extend "${lesson.title}" with an additional input and output.`,
+            hint: "Reuse your first solution and add one extra variable.",
+            solution: primary.solution,
+            starterCode: primary.starterCode
+        }
+    ];
+}
+
+function normalizePythonLessons() {
+    pythonLessons = pythonLessons.slice(0, 15).map((lesson, index) => {
+        const activities = lesson.activities?.length ? lesson.activities : buildPythonActivities(lesson);
+        return {
+            ...lesson,
+            id: index + 1,
+            activities,
+            exercise: activities[0]
+        };
+    });
+}
+
+normalizePythonLessons();
 
 // Global variables
 let currentLesson = 0;

@@ -7,46 +7,32 @@
     <link rel="stylesheet" href="login-styles.css">
 </head>
 <body>
+    <div class="bg-glow"></div>
     <div class="container">
         <div class="form-container">
+            <div class="badge">✨ Learn modern coding skills</div>
             <div class="form-header">
                 <h1>🚀 CodeSpark</h1>
-                <p>Join the coding adventure!</p>
+                <p>Build projects faster with guided lessons and hands-on coding activities.</p>
             </div>
-            
+
             <div class="toggle-buttons">
                 <button class="toggle-btn active" onclick="showLogin()">Login</button>
                 <button class="toggle-btn" onclick="showSignup()">Sign Up</button>
             </div>
 
-            <!-- Login Form -->
             <form id="loginForm" class="form active">
-                <div class="input-group">
-                    <input type="email" id="loginEmail" placeholder="Email" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="loginPassword" placeholder="Password" required>
-                </div>
+                <div class="input-group"><input type="email" id="loginEmail" placeholder="Email" required></div>
+                <div class="input-group"><input type="password" id="loginPassword" placeholder="Password" required></div>
                 <button type="submit" class="submit-btn">Login</button>
-                <div class="forgot-password">
-                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
-                </div>
+                <div class="forgot-password"><a href="#" onclick="showForgotPassword()">Forgot Password?</a></div>
             </form>
 
-            <!-- Signup Form -->
             <form id="signupForm" class="form">
-                <div class="input-group">
-                    <input type="text" id="signupName" placeholder="Full Name" required>
-                </div>
-                <div class="input-group">
-                    <input type="email" id="signupEmail" placeholder="Email" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="signupPassword" placeholder="Password" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
-                </div>
+                <div class="input-group"><input type="text" id="signupName" placeholder="Full Name" required></div>
+                <div class="input-group"><input type="email" id="signupEmail" placeholder="Email" required></div>
+                <div class="input-group"><input type="password" id="signupPassword" placeholder="Password" required></div>
+                <div class="input-group"><input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required></div>
                 <div class="age-group">
                     <label>Age Group:</label>
                     <select id="ageGroup" required>
@@ -59,49 +45,22 @@
                 <button type="submit" class="submit-btn">Create Account</button>
             </form>
 
-            <!-- Forgot Password Form -->
             <form id="forgotForm" class="form">
-                <div class="input-group">
-                    <input type="email" id="forgotEmail" placeholder="Enter your email" required>
-                </div>
+                <div class="input-group"><input type="email" id="forgotEmail" placeholder="Enter your email" required></div>
                 <button type="submit" class="submit-btn">Reset Password</button>
-                <div class="back-to-login">
-                    <a href="#" onclick="showLogin()">Back to Login</a>
-                </div>
+                <div class="back-to-login"><a href="#" onclick="showLogin()">Back to Login</a></div>
             </form>
         </div>
 
-        <div class="features">
-            <h2>Why Join CodeSpark?</h2>
-            <div class="feature-item">
-                <span class="feature-icon">🎯</span>
-                <div>
-                    <h3>Personalized Learning</h3>
-                    <p>AI-powered lessons tailored to your skill level</p>
-                </div>
+        <aside class="features">
+            <h2>What’s New in CodeSpark</h2>
+            <div class="feature-grid">
+                <div class="feature-item"><span class="feature-icon">📚</span><div><h3>Structured Courses</h3><p>15 lessons in each course with focused coding activities.</p></div></div>
+                <div class="feature-item"><span class="feature-icon">🧠</span><div><h3>Hands-On Practice</h3><p>2-3 guided exercises in every lesson to reinforce learning.</p></div></div>
+                <div class="feature-item"><span class="feature-icon">⚡</span><div><h3>Fast Feedback</h3><p>Try code instantly and iterate with hints and checks.</p></div></div>
+                <div class="feature-item"><span class="feature-icon">🏆</span><div><h3>Progress Tracking</h3><p>Track completion and keep momentum across all tracks.</p></div></div>
             </div>
-            <div class="feature-item">
-                <span class="feature-icon">🏆</span>
-                <div>
-                    <h3>Track Progress</h3>
-                    <p>See your coding journey with detailed analytics</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">🎮</span>
-                <div>
-                    <h3>Fun Projects</h3>
-                    <p>Build games, apps, and websites while learning</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon">🤖</span>
-                <div>
-                    <h3>AI Tutor</h3>
-                    <p>Get instant help from our friendly AI coding assistant</p>
-                </div>
-            </div>
-        </div>
+        </aside>
     </div>
 
     <script src="login-script.js"></script>
