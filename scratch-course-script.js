@@ -4,7 +4,7 @@ let completedLessons = [];
 let currentScript = [];
 
 // Scratch/Blocks Course Lessons
-const scratchLessons = [
+let scratchLessons = [
     {
         id: 1,
         title: "Welcome to Scratch!",
@@ -205,6 +205,56 @@ const scratchLessons = [
         }
     }
 ];
+
+// Normalize to 15 lessons with 2 activities per lesson
+
+function buildScratchActivities(lesson) {
+    const primary = lesson.exercise || {
+        title: `Build a script for ${lesson.title}`,
+        description: "Use motion and control blocks to create a short animation.",
+        hint: "Start with when-flag, then add repeat and move blocks.",
+        solution: ["when-flag", "repeat", "move"]
+    };
+
+    return [
+        primary,
+        {
+            title: `Challenge Activity: Remix ${lesson.title}`,
+            description: "Add one looks block and one sound block to improve your script.",
+            hint: "Try say/change-color and play-sound blocks.",
+            solution: Array.from(new Set([...(primary.solution || []), "say", "play-sound"]))
+        }
+    ];
+}
+
+function normalizeScratchLessons() {
+    scratchLessons = scratchLessons.slice(0, 15);
+
+    while (scratchLessons.length < 15) {
+        const n = scratchLessons.length + 1;
+        scratchLessons.push({
+            id: n,
+            title: `Scratch Studio ${n}`,
+            content: `
+                <h3>🧩 Scratch Studio ${n}</h3>
+                <p>Combine motion, looks, sound, and control blocks to create an interactive animation.</p>
+            `,
+            exercise: null
+        });
+    }
+
+    scratchLessons = scratchLessons.map((lesson, index) => {
+        const activities = lesson.activities?.length ? lesson.activities : buildScratchActivities(lesson);
+        return {
+            ...lesson,
+            id: index + 1,
+            activities,
+            exercise: activities[0]
+        };
+    });
+}
+
+normalizeScratchLessons();
 
 // Initialize the course
 document.addEventListener('DOMContentLoaded', function() {

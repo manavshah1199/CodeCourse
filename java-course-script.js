@@ -616,6 +616,60 @@ public class Calculator {
     }
 ];
 
+// Normalize to 15 lessons with 2 activities per lesson
+
+function buildJavaActivities(lesson) {
+    const primary = lesson.exercise || {
+        question: `Create a Java class for ${lesson.title}`,
+        starterCode: `public class Main {
+    public static void main(String[] args) {
+        // Write your code here
+    }
+}`,
+        solution: "class",
+        hint: "Start with a class and a main method."
+    };
+
+    return [
+        primary,
+        {
+            question: `Challenge Activity: Add input handling and one extra condition for "${lesson.title}".`,
+            starterCode: primary.starterCode,
+            solution: primary.solution,
+            hint: "Use Scanner with if/switch based on this lesson's focus."
+        }
+    ];
+}
+
+function normalizeJavaLessons() {
+    javaLessons = javaLessons.slice(0, 15);
+
+    while (javaLessons.length < 15) {
+        const n = javaLessons.length + 1;
+        javaLessons.push({
+            id: n,
+            title: `Java Practice Lab ${n}`,
+            content: `
+                <h2>☕ Java Practice Lab ${n}</h2>
+                <p>Apply Java fundamentals to build clean, reusable console programs.</p>
+            `,
+            exercise: null
+        });
+    }
+
+    javaLessons = javaLessons.map((lesson, index) => {
+        const activities = lesson.activities?.length ? lesson.activities : buildJavaActivities(lesson);
+        return {
+            ...lesson,
+            id: index + 1,
+            activities,
+            exercise: activities[0]
+        };
+    });
+}
+
+normalizeJavaLessons();
+
 // Initialize the course
 document.addEventListener('DOMContentLoaded', function() {
     loadLessons();
